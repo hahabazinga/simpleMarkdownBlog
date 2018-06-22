@@ -1,6 +1,6 @@
 # exercise
 
-> A Vue.js project
+> 超简易的博客
 
 ## Build Setup
 
