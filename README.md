@@ -11,6 +11,9 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
+# express server at localhost:3000
+node ./server/server.js
+
 # build for production with minification
 npm run build
 
