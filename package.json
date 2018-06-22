@@ -1,7 +1,7 @@
 {
   "name": "exercise",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "超简易的博客",
   "author": "ws",
   "private": true,
   "scripts": {

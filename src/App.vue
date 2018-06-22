@@ -6,9 +6,9 @@
         <el-table-column prop="label">
         </el-table-column>
       </el-table>
-      <el-button style="margin-top: 10px;">下一页</el-button>
+      <el-button style="margin-top: 10px;" @click="nextPage()">下一页</el-button>
+      <el-button style="margin-top: 10px;" @click="prePage()">上一页</el-button>
     </div>
-
     <div class="markdown-body" v-html="content"></div>
   </div>
 </template>
@@ -29,8 +29,16 @@ export default {
           label: '文本1'
         }
       ],
-      content: ''
+      content: '',
+      currentPage: 1
     }
+  },
+  mounted: function () {
+    fetch('http://localhost:3000/api/getList?pageId=' + this.currentPage)
+      .then(res => res.json())
+      .then(data => {
+        this.form = data.data
+      })
   },
   components: {
     blogHeader
@@ -55,6 +63,29 @@ export default {
         })
         .catch(function (e) {
           console.log('oops! error!', e)
+        })
+    },
+    nextPage: function () {
+      this.currentPage++
+      fetch('http://localhost:3000/api/getList?pageId=' + this.currentPage)
+        .then(res => res.json())
+        .then(data => {
+          if (Object.keys(data).length > 0) {
+            this.form = data.data
+          } else {
+            this.currentPage--
+          }
+        })
+    },
+    prePage: function () {
+      if (this.currentPage > 1) {
+        this.currentPage--
+      }
+      console.log(this.currentPage)
+      fetch('http://localhost:3000/api/getList?pageId=' + this.currentPage)
+        .then(res => res.json())
+        .then(data => {
+          this.form = data.data
         })
     }
   }
