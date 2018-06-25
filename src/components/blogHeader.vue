@@ -19,7 +19,7 @@ export default {
 <style scoped>
   .header{
   width: 100%;
-  height: 100px;
+  height: 10%;
   background-color: #cccccc;
 }
   span{

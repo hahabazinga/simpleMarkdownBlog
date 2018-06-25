@@ -1,20 +1,24 @@
 <template>
   <div id="app">
     <blog-header></blog-header>
-    <div class="leftNav">
-      <el-table :data="form" @cell-click="onItemClick($event)" highlight-current-row @current-change="handleCurrentChange">
-        <el-table-column prop="label" highlight-current-row="highlightRow">
-        </el-table-column>
-      </el-table>
-      <el-button style="margin-top: 10px;" @click="nextPage()">下一页</el-button>
-      <el-button style="margin-top: 10px;" @click="prePage()">上一页</el-button>
+    <div class="container">
+      <div class="leftNav">
+        <el-table :data="form" @cell-click="onItemClick($event)" highlight-current-row @current-change="handleCurrentChange">
+          <el-table-column prop="label" highlight-current-row="highlightRow">
+          </el-table-column>
+        </el-table>
+        <el-button style="margin-top: 10px;" @click="nextPage()">下一页</el-button>
+        <el-button style="margin-top: 10px;" @click="prePage()">上一页</el-button>
+      </div>
+      <p class="title">{{title}}</p>
+      <div class="markdown-body" v-html="content"></div>
     </div>
-    <div class="title">{{title}}</div>
-    <div class="markdown-body" v-html="content"></div>
+    <blog-footer></blog-footer>
   </div>
 </template>
 <script>
 import blogHeader from './components/blogHeader.vue'
+import blogFooter from './components/blogFooter.vue'
 import 'github-markdown-css/github-markdown.css'
 import 'highlight.js/styles/github-gist.css'
 
@@ -46,12 +50,8 @@ export default {
       })
   },
   components: {
-    blogHeader
-  },
-  rules: {
-    title: [
-      { required: true, message: '必填', trigger: 'blur' }
-    ]
+    blogHeader,
+    blogFooter
   },
   methods: {
     handleCurrentChange: function (val) {
@@ -101,10 +101,25 @@ export default {
 </script>
 
 <style>
+  html, body, #app{
+    min-height: 100%;
+  }
+  .container{
+    min-height: 77%;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
   .markdown-body{
-    max-width: 980px;
-    margin-top: 5%;
+    max-width: 80%;
     margin-left: 25%;
+  }
+  .markdown-body::after{
+    display: none;
+  }
+  .markdown-body::before{
+    display: none;
   }
   .leftNav{
     margin: 5% 0;
@@ -112,9 +127,19 @@ export default {
     position: absolute
   }
   .title{
-    position: absolute;
-    left: 50%;
-    margin-top: 2%;
-    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+  }
+  @media screen and (max-width: 380px){
+    .leftNav{
+      position: relative;
+      width: 100%;
+    }
+    .markdown-body{
+      margin: 0;
+      max-width: 100%;
+    }
   }
 </style>
