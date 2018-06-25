@@ -6,6 +6,11 @@ const FILE_LIST = []
 const MAX_PER_PAGE = 10
 
 const serv = express()
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value
+  }
+})
 
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:8080')

@@ -2,19 +2,22 @@
   <div id="app">
     <blog-header></blog-header>
     <div class="leftNav">
-      <el-table :data="form" @cell-click="onItemClick($event)">
-        <el-table-column prop="label">
+      <el-table :data="form" @cell-click="onItemClick($event)" highlight-current-row @current-change="handleCurrentChange">
+        <el-table-column prop="label" highlight-current-row="highlightRow">
         </el-table-column>
       </el-table>
       <el-button style="margin-top: 10px;" @click="nextPage()">下一页</el-button>
       <el-button style="margin-top: 10px;" @click="prePage()">上一页</el-button>
     </div>
+    <div class="title">{{title}}</div>
     <div class="markdown-body" v-html="content"></div>
   </div>
 </template>
 <script>
 import blogHeader from './components/blogHeader.vue'
-import 'github-markdown-css'
+import 'github-markdown-css/github-markdown.css'
+import 'highlight.js/styles/github-gist.css'
+
 export default {
   name: 'App',
   data () {
@@ -30,7 +33,9 @@ export default {
         }
       ],
       content: '',
-      currentPage: 1
+      title: '',
+      currentPage: 1,
+      currentRow: null
     }
   },
   mounted: function () {
@@ -49,9 +54,12 @@ export default {
     ]
   },
   methods: {
+    handleCurrentChange: function (val) {
+      this.currentRow = val
+    },
     onItemClick: function (v) {
-      console.log(v)
       let that = this
+      that.title = v.label
       fetch('http://localhost:3000/api/getData?blogId=' + v.value, {
         headers: {
           'content-type': 'application/json'
@@ -102,5 +110,11 @@ export default {
     margin: 5% 0;
     width: 20%;
     position: absolute
+  }
+  .title{
+    position: absolute;
+    left: 50%;
+    margin-top: 2%;
+    transform: translateX(-50%);
   }
 </style>
