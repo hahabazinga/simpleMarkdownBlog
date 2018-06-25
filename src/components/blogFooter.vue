@@ -48,8 +48,8 @@ export default {
     height: 32px;
   }
   .webchatCodeBig{
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    margin-top: -80px;
     width: 150px;
     height: 150px;
   }
