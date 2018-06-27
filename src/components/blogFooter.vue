@@ -1,8 +1,8 @@
 <template>
   <footer class="footer">
     <span>{{ msg }}</span>
-    <a v-bind:href="githubUrl"><img :src="githubPng"></a>
-    <span>与我联系<img :class="{ wechatCodeSM: !isBigger, webchatCodeBig: isBigger }" :src="wechatCode" @click="bigger($event)"></span>
+    <a v-bind:href="githubUrl"><img title="github" alt="github" :src="githubPng"></a>
+    <span>与我联系<img title="wechat点击放大" alt="wechat" :class="{ wechatCodeSM: !isBigger, webchatCodeBig: isBigger }" :src="wechatCode" @click="bigger($event)"></span>
   </footer>
 </template>
 

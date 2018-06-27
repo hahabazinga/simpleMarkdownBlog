@@ -13,12 +13,14 @@
       <p class="title">{{title}}</p>
       <div class="markdown-body" v-html="content"></div>
     </div>
+    <comment :blog-id="title"></comment>
     <blog-footer></blog-footer>
   </div>
 </template>
 <script>
 import blogHeader from './components/blogHeader.vue'
 import blogFooter from './components/blogFooter.vue'
+import comment from './components/comment'
 import 'github-markdown-css/github-markdown.css'
 import 'highlight.js/styles/github-gist.css'
 
@@ -51,7 +53,8 @@ export default {
   },
   components: {
     blogHeader,
-    blogFooter
+    blogFooter,
+    comment
   },
   methods: {
     handleCurrentChange: function (val) {
